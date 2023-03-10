@@ -13,7 +13,7 @@ def create_image(src: str, methode: int) -> str:
     draw = ImageDraw.Draw(img)  # Создаем инструмент для рисования.
 
     if methode == 0:
-        simple_edge_detection(width,height,draw, gray_pix)
+        simple_edge_detection(width, height, draw, gray_pix)
     elif methode == 1:
         gradient_mask_edge_detection(draw, gray_pix)
     elif methode == 2:
@@ -33,7 +33,7 @@ def create_image(src: str, methode: int) -> str:
 # --------------------------------------------------
 # Линейные алгоритмы
 # --------------------------------------------------
-def simple_edge_detection(width, height, draw: ImageDraw, pixels) :
+def simple_edge_detection(width, height, draw: ImageDraw, pixels):
     """
     Использование порогового алгоритма выделения линий при помощи горизонтальных, вертикальных и наклонных масок.
     :param draw:
@@ -49,11 +49,11 @@ def simple_edge_detection(width, height, draw: ImageDraw, pixels) :
     for i in range(1, height - 1):
         for j in range(1, width - 1):
             for mask in arr:
-                value = mask[0][0] * pixels[i - 1,j - 1] + mask[0][0] * pixels[i - 1,j] + mask[0][0] * pixels[i - 1][
-                    j + 1] + \
-                        mask[1][0] * pixels[i,j - 1] + mask[1][0] * pixels[i,j] + mask[1][0] * pixels[i][j + 1] + \
-                        mask[2][0] * pixels[i + 1,j - 1] + mask[2][0] * pixels[i + 1][j] + mask[2][0] * pixels[i + 1][
-                            j + 1]
+                value = mask[0][0] * pixels[i - 1, j - 1] + mask[0][0] * pixels[i - 1, j] + mask[0][0] * pixels[i - 1,
+                                                                                                                j + 1] + \
+                        mask[1][0] * pixels[i, j - 1] + mask[1][0] * pixels[i, j] + mask[1][0] * pixels[i, j + 1] + \
+                        mask[2][0] * pixels[i + 1, j - 1] + mask[2][0] * pixels[i + 1, j] + mask[2][0] * pixels[i + 1,
+                                                                                                                j + 1]
                 if value != 0:
                     draw.point((i, j), (255))
 
