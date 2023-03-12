@@ -49,13 +49,20 @@ class Gui:
         Вызов окна выбора файла, получение пути до изображения и вставка его в канвас.
         :return:
         """
-        file = filedialog.askopenfilename(filetypes=(("PNG", "*.png"), ("PCX", "*.pcx"), ("BMP", "*.bmp"),
+        file = filedialog.askopenfilename(filetypes=(("img", ".jpg .bmp .png .pcx"),
                                                      ("all files", "*.*")))
         self.lbl_src.configure(text=f"{file}")
         self.variables["src"] = file
         print(self.variables["src"])
         self.image_input = Image.open(file)
-        self.image_input = self.image_input.resize((400, 400), Image.ANTIALIAS)
+        width, height = self.image_input.size
+        if width > height:
+            height = int(height / width * 400)
+            width = 400
+        else:
+            width = int(width / height * 400)
+            height = 400
+        self.image_input = self.image_input.resize((width, height), Image.ANTIALIAS)
         self.photo_input = ImageTk.PhotoImage(self.image_input)
         self.c_image_input = self.canvas_input.create_image(0, 0, anchor='nw', image=self.photo_input)
 

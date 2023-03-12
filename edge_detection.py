@@ -2,7 +2,7 @@ from PIL import Image, ImageDraw, ImageTk  # Подключим необходи
 
 
 def create_image(src: str, methode: int) -> str:
-    image = Image.open("./input/test_image.jpg")  # Открываем изображение.
+    image = Image.open(src)  # Открываем изображение.
 
     width = image.size[0]  # Определяем ширину.
     height = image.size[1]  # Определяем высоту.
@@ -46,16 +46,33 @@ def simple_edge_detection(width, height, draw: ImageDraw, pixels):
     H13 = [[2, -1, -1], [-1, 2, -1], [-1, -1, 2]]
     arr = [H10, H11, H12, H13]
 
-    for i in range(1, height - 1):
-        for j in range(1, width - 1):
+    tmp_arr = []
+    for i in range(height):
+        tmp_arr.append([])
+        for j in range(width):
+            if i == 0 or i == height - 1 or j == width - 1 or j == 0:
+                tmp_arr[i].append(0)
+                continue
+            value_arr = []
             for mask in arr:
-                value = mask[0][0] * pixels[i - 1, j - 1] + mask[0][0] * pixels[i - 1, j] + mask[0][0] * pixels[i - 1,
-                                                                                                                j + 1] + \
-                        mask[1][0] * pixels[i, j - 1] + mask[1][0] * pixels[i, j] + mask[1][0] * pixels[i, j + 1] + \
-                        mask[2][0] * pixels[i + 1, j - 1] + mask[2][0] * pixels[i + 1, j] + mask[2][0] * pixels[i + 1,
-                                                                                                                j + 1]
-                if value != 0:
-                    draw.point((i, j), (255))
+                value = mask[0][0] * pixels[j - 1, i - 1] + mask[0][0] * pixels[j - 1, i] + mask[0][0] * pixels[j - 1,
+                                                                                                                i + 1] + \
+                        mask[1][0] * pixels[j, i - 1] + mask[1][0] * pixels[j, i] + mask[1][0] * pixels[j, i + 1] + \
+                        mask[2][0] * pixels[j + 1, i - 1] + mask[2][0] * pixels[j + 1, i] + mask[2][0] * pixels[j + 1,
+                                                                                                                i + 1]
+                value_arr.append(abs(value))
+            tmp_arr[i].append(max(value_arr))
+
+    avr = 0
+    for i in range(height):
+        for j in range(width):
+            avr += tmp_arr[i][j]
+    avr = avr / (height*width)
+
+    for i in range(height):
+        for j in range(width):
+            if tmp_arr[i][j] > avr:
+                draw.point((j, i), (255))
 
 
 def gradient_mask_edge_detection(draw: ImageDraw, pixels) -> str:
