@@ -193,11 +193,12 @@ def count_with_masks(mask_arr: list[list[list[int]]], width: int, height: int, d
     else:
         tmp_arr = two_mask(mask_arr, width, height, pixels)
     avr = 0
+    # считает среднее значение для изображения
     for i in range(height):
         for j in range(width):
             avr += tmp_arr[i][j]
     avr = avr / (height * width)
-
+    # если выше среднего, то закрасить пиксель белым (изображение изначально полностью черное)
     for i in range(height):
         for j in range(width):
             if tmp_arr[i][j] > avr:
