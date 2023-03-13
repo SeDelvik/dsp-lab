@@ -75,7 +75,14 @@ class Gui:
             return
         src_out = create_image(self.variables["src"], self.methode_var.get())
         self.image_output = Image.open(src_out)
-        self.image_output = self.image_output.resize((400, 400), Image.ANTIALIAS)
+        width, height = self.image_output.size
+        if width > height:
+            height = int(height / width * 400)
+            width = 400
+        else:
+            width = int(width / height * 400)
+            height = 400
+        self.image_output = self.image_output.resize((width, height), Image.ANTIALIAS)
         self.photo_output = ImageTk.PhotoImage(self.image_output)
         self.c_image_output = self.canvas_output.create_image(0, 0, anchor='nw', image=self.photo_output)
 
