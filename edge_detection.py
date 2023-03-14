@@ -52,7 +52,7 @@ def simple_edge_detection(width: int, height: int, draw: ImageDraw, pixels):
     :param width: Ширина изображения.
     :param draw: Новое пустое изображение такого же размера как исходное.
     :param pixels: Массив чб пикселей исходного изображения.
-    :return: Путь до получившегося изображения.
+    :return:
     """
     H10 = [[-1, -1, -1], [2, 2, 2], [-1, -1, -1]]
     H11 = [[-1, -1, 2], [-1, 2, -1, ], [2, -1, -1]]
@@ -70,7 +70,7 @@ def gradient_mask_edge_detection(width: int, height: int, draw: ImageDraw, pixel
     :param width: Ширина изображения.
     :param draw: Новое пустое изображение такого же размера как исходное.
     :param pixels: Массив чб пикселей исходного изображения.
-    :return: Путь до получившегося изображения.
+    :return:
     """
     H10 = [[1, 1, 1], [1, -2, 1], [-1, -1, -1]]
     H11 = [[1, 1, 1], [-1, -2, 1], [-1, -1, 1]]
@@ -92,7 +92,7 @@ def laplas_mask_edge_detection(width: int, height: int, draw: ImageDraw, pixels)
     :param width: Ширина изображения.
     :param draw: Новое пустое изображение такого же размера как исходное.
     :param pixels: Массив чб пикселей исходного изображения.
-    :return: Путь до получившегося изображения.
+    :return:
     """
     L1 = [[0, -1, 0], [-1, 4, -1], [0, -1, 0]]
     L2 = [[-1, -1, -1], [-1, 8, -1], [-1, -1, -1]]
@@ -112,7 +112,7 @@ def roberts_mask_edge_detection(width: int, height: int, draw: ImageDraw, pixels
     :param width: Ширина изображения.
     :param draw: Новое пустое изображение такого же размера как исходное.
     :param pixels: Массив чб пикселей исходного изображения.
-    :return: Путь до получившегося изображения.
+    :return:
     """
     H18 = [[1, 0], [0, -1]]
     H19 = [[0, 1], [-1, 0]]
@@ -127,7 +127,7 @@ def previtt_mask_edge_detection(width: int, height: int, draw: ImageDraw, pixels
     :param width: Ширина изображения.
     :param draw: Новое пустое изображение такого же размера как исходное.
     :param pixels: Массив чб пикселей исходного изображения.
-    :return: Путь до получившегося изображения.
+    :return:
     """
     H20 = [[-1, 0, 1], [-1, 0, 1], [-1, 0, 1]]
     H21 = [[-1, -1, -1], [0, 0, 0, ], [1, 1, 1]]
@@ -145,7 +145,7 @@ def sobel_mask_edge_detection(width: int, height: int, draw: ImageDraw, pixels):
     :param width: Ширина изображения.
     :param draw: Новое пустое изображение такого же размера как исходное.
     :param pixels: Массив чб пикселей исходного изображения.
-    :return: Путь до получившегося изображения.
+    :return:
     """
     H22 = [[-1, 0, 1], [-2, 0, 2], [-2, 0, 1]]
     H23 = [[-1, -2, -1], [0, 0, 0], [1, 2, 1]]
@@ -163,7 +163,7 @@ def kirsh_mask_edge_detection(width: int, height: int, draw: ImageDraw, pixels):
     :param width: Ширина изображения.
     :param draw: Новое пустое изображение такого же размера как исходное.
     :param pixels: Массив чб пикселей исходного изображения.
-    :return: Путь до получившегося изображения.
+    :return:
     """
     K1 = [[-3, -3, 5], [-3, 0, 5], [-3, -3, 5]]  # север
     K2 = [[-3, 5, 5], [-3, 0, 5], [-3, -3, -3]]  # северо-запад
