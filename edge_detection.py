@@ -1,4 +1,4 @@
-from PIL import Image, ImageDraw, ImageTk  # Подключим необходимые библиотеки.
+from PIL import Image, ImageDraw
 from datetime import datetime
 
 
