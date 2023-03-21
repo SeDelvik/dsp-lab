@@ -19,25 +19,33 @@ def create_image(src: str, methode: int) -> str:
     img = Image.new('L', (width, height), (0))
     draw = ImageDraw.Draw(img)  # Создаем инструмент для рисования.
 
+    methode_name = ""
     if methode == 0:
+        methode_name = "simple"
         simple_edge_detection(width, height, draw, gray_pix)
     elif methode == 1:
+        methode_name = "gradient"
         gradient_mask_edge_detection(width, height, draw, gray_pix)
     elif methode == 2:
+        methode_name = "laplas"
         laplas_mask_edge_detection(width, height, draw, gray_pix)
     elif methode == 3:
+        methode_name = "roberts"
         roberts_mask_edge_detection(width, height, draw, gray_pix)
     elif methode == 4:
+        methode_name = "previtt"
         previtt_mask_edge_detection(width, height, draw, gray_pix)
     elif methode == 5:
+        methode_name = "sobel"
         sobel_mask_edge_detection(width, height, draw, gray_pix)
     else:
+        methode_name = "kirsh"
         kirsh_mask_edge_detection(width, height, draw, gray_pix)
 
     split_arr = src.split('/')
     name = split_arr[len(split_arr) - 1]
     print(name)
-    src_out = f'./output/{datetime.now().strftime("%d-%m-%Y_%H-%M-%S")}_{name}'
+    src_out = f'./output/{datetime.now().strftime("%d-%m-%Y_%H-%M-%S")}_{methode_name}_{name}'
     img.save(src_out, "JPEG")
     return src_out
 
@@ -223,10 +231,10 @@ def three_mask(mask_arr: list[list[list[int]]], width: int, height: int, pixels)
                 continue
             value_arr = []
             for mask in mask_arr:
-                value = mask[0][0] * pixels[j - 1, i - 1] + mask[0][0] * pixels[j - 1, i] + mask[0][0] * pixels[j - 1,
+                value = mask[0][0] * pixels[j - 1, i - 1] + mask[0][1] * pixels[j - 1, i] + mask[0][2] * pixels[j - 1,
                                                                                                                 i + 1] + \
-                        mask[1][0] * pixels[j, i - 1] + mask[1][0] * pixels[j, i] + mask[1][0] * pixels[j, i + 1] + \
-                        mask[2][0] * pixels[j + 1, i - 1] + mask[2][0] * pixels[j + 1, i] + mask[2][0] * pixels[j + 1,
+                        mask[1][0] * pixels[j, i - 1] + mask[1][1] * pixels[j, i] + mask[1][2] * pixels[j, i + 1] + \
+                        mask[2][0] * pixels[j + 1, i - 1] + mask[2][1] * pixels[j + 1, i] + mask[2][2] * pixels[j + 1,
                                                                                                                 i + 1]
                 value_arr.append(abs(value))
             tmp_arr[i].append(max(value_arr))
